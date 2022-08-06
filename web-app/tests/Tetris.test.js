@@ -34,14 +34,36 @@ describe("Hold", function () {
         Then the game state before and after the second hold, is the same.`,
         function () {
             const initial_game = Tetris.hold(Tetris.new_game());
-            // Implement the rest of this function.
+
+            const final_game = Tetris.hold(initial_game);
+            if (!R.equals(initial_game, final_game)) {
+                throw new Error(
+                    `The initial and final game state do not match
+                    Initial: ${JSON.stringify(initial_game)}
+                    Final:   ${JSON.stringify(final_game)}`
+                );
+            }
         }
     );
 
     it(
-        `### Change this to your test description ###`,
+        `If there is no held piece and a hold performed, the next tetromino is deployed:
+        Given a new Tetris Game;
+        When Hold is (first) preformed;
+        Then the next tetromino before the sequence and the current tetromino after the Hold, is the same.`,
         function () {
-            // Implement this function.
+            const initial_game = Tetris.new_game();
+            const initial_piece = initial_game.next_tetromino;
+
+            const final_game = Tetris.hold(initial_game);
+            const final_piece = final_game.current_tetromino;
+            if (!R.equals(initial_piece, final_piece)) {
+                throw new Error(
+                    `The inital next and final current tetrominos do not match
+                    Initial: ${JSON.stringify(initial_piece)}
+                    Final:   ${JSON.stringify(final_piece)}`
+                );
+            }
         }
     );
 });
