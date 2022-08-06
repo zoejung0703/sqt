@@ -116,6 +116,7 @@ const update_nextT_grid = function () {
     let next_tetromino = game.next_tetromino;
     let tetromino_grid = next_tetromino.grid;
     let nextT_cell_empty = document.getElementById("nextT_cell");
+    //console.log(next_tetromino.block_type);
 
     nextT_cell_empty.className = "nextT_cell empty";
 
@@ -131,7 +132,7 @@ const update_nextT_grid = function () {
 const update_heldT_grid = function () {
     let held_tetromino = game.held_tetromino;
     let block_type = held_tetromino.block_type;
-    console.log(block_type);
+    // console.log(block_type);
 
     let tetromino_grid = held_tetromino.grid;
 

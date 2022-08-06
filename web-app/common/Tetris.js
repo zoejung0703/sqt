@@ -673,12 +673,13 @@ Tetris.hold = function (game) {
                 "can_can_hold": false
                 };
         } else {
+            const [next_tetromino, bag] = game.bag();
             return {
-                "bag": game.bag,
+                "bag": bag,
                 "current_tetromino": game.next_tetromino,
                 "field": game.field,
                 "game_over": false,
-                "next_tetromino": game.next_tetromino,
+                "next_tetromino": next_tetromino,
                 "position": game.position,
                 "score": game.score,
                 "held_tetromino": game.current_tetromino,
