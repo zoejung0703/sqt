@@ -1,7 +1,7 @@
 import R from "./ramda.js";
 /**
  * @namespace Tetris
- * @author A. Freddie Page
+ * @author A. Freddie Page, Zoe Jung
  * @version 2021.22
  */
 const Tetris = Object.create(null);
@@ -26,6 +26,8 @@ const Tetris = Object.create(null);
  * @property {Tetris.Tetromino} next_tetromino The next piece to descend.
  * @property {number[]} position Where in the field is the current tetromino.
  * @property {Tetris.Score} score Information relating to the score of the game.
+ * @property {held_tetromino} the tetromino you are holding.
+ * @property {can_hold} a boolean that determines if holding is allowed.
  */
 
 /**
@@ -106,8 +108,10 @@ Tetris.I_tetromino = Object.freeze({
     "block_type": "I",
     "centre": [1, 0],
     "grid": [
-        ["I", "I", "I", "I"]
-    ]
+        ["I", "I", "I", "I"],
+        [" ", " ", " ", " "]
+    ],
+    "colour": "cyan"
 });
 
 /**
@@ -123,9 +127,10 @@ Tetris.J_tetromino = Object.freeze({
     "block_type": "J",
     "centre": [1, 0],
     "grid": [
-        ["J", "J", "J"],
-        [" ", " ", "J"]
-    ]
+        ["J", "J", "J", " "],
+        [" ", " ", "J", " "]
+    ],
+    "colour": "blue"
 });
 
 /**
@@ -141,9 +146,10 @@ Tetris.L_tetromino = Object.freeze({
     "block_type": "L",
     "centre": [1, 0],
     "grid": [
-        ["L", "L", "L"],
-        ["L", " ", " "]
-    ]
+        ["L", "L", "L", " "],
+        ["L", " ", " ", " "]
+    ],
+    "colour": "orange"
 });
 
 /**
@@ -159,9 +165,10 @@ Tetris.O_tetromino = Object.freeze({
     "block_type": "O",
     "centre": [0.5, 0.5],
     "grid": [
-        ["O", "O"],
-        ["O", "O"]
-    ]
+        ["O", "O", " ", " "],
+        ["O", "O", " ", " "]
+    ],
+    "colour": "yellow"
 });
 
 /**
@@ -177,9 +184,10 @@ Tetris.S_tetromino = Object.freeze({
     "block_type": "S",
     "centre": [1, 0],
     "grid": [
-        [" ", "S", "S"],
-        ["S", "S", " "]
-    ]
+        [" ", "S", "S", " "],
+        ["S", "S", " ", " "]
+    ],
+    "colour": "green"
 });
 
 /**
@@ -195,9 +203,10 @@ Tetris.T_tetromino = Object.freeze({
     "block_type": "T",
     "centre": [1, 0],
     "grid": [
-        ["T", "T", "T"],
-        [" ", "T", " "]
-    ]
+        ["T", "T", "T", " "],
+        [" ", "T", " ", " "]
+    ],
+    "colour": "pink"
 });
 
 /**
@@ -213,9 +222,10 @@ Tetris.Z_tetromino = Object.freeze({
     "block_type": "Z",
     "centre": [1, 0],
     "grid": [
-        ["Z", "Z", " "],
-        [" ", "Z", "Z"]
-    ]
+        ["Z", "Z", " ", " "],
+        [" ", "Z", "Z", " "]
+    ],
+    "colour": "red"
 });
 
 const empty_block = " ";
@@ -229,6 +239,7 @@ const all_tetrominos = [
     Tetris.T_tetromino,
     Tetris.Z_tetromino
 ];
+
 
 /**
  * The height of a tetris field.
@@ -286,6 +297,18 @@ const new_field = function () {
     return R.times(new_line, Tetris.field_height);
 };
 
+/*
+const nextT_new_line = function () {
+    return R.repeat(empty_block, Tetris.nextT_field_width);
+};
+
+const nextT_new_field = function () {
+    return R.times(nextT_new_line, Tetris.nextT_field_height);
+};
+
+*/
+
+
 const new_score = () => 0;
 
 /**
@@ -305,9 +328,14 @@ Tetris.new_game = function () {
         "game_over": false,
         "next_tetromino": next_tetromino,
         "position": starting_position,
-        "score": new_score()
+        "score": new_score(),
+        "held_tetromino": "",
+        "can_hold": true,
+        "can_can_hold": true
+        //"nextT_field": nextT_new_field()
     };
 };
+
 
 /**
  * For a given tetromino and position,
@@ -333,6 +361,25 @@ Tetris.tetromino_coordiates = function (tetromino, position) {
         });
     });
 };
+
+
+Tetris.nextT_tetromino_coordiates = function (next_tetromino, position) {
+    return next_tetromino.grid.flatMap(function (row, row_index) {
+        return row.flatMap(function (block, column_index) {
+            if (block === empty_block) {
+                return [];
+            }
+            return [[
+                position[0] + column_index - Math.floor(next_tetromino.centre[0]),
+                position[1] + row_index - Math.floor(next_tetromino.centre[1])
+            ]];
+        });
+    });
+};
+
+
+
+
 
 const is_blocked_bottom = function (tetromino, position) {
     return Tetris.tetromino_coordiates(tetromino, position).some(
@@ -581,6 +628,15 @@ Tetris.next_turn = function (game) {
         return lose(game);
     }
 
+    if (game.can_hold === false && game.can_can_hold === true) {
+        game.can_hold = true;
+    }
+
+    if (game.can_can_hold === false) {
+        game.can_can_hold = true;
+    }
+
+
     const locked_field = lock(game);
 
     const cleared_field = clear_lines(locked_field);
@@ -594,9 +650,50 @@ Tetris.next_turn = function (game) {
         "game_over": false,
         "next_tetromino": next_tetromino,
         "position": starting_position,
-        "score": game.score
+        "score": game.score,
+        "held_tetromino": game.held_tetromino,
+        "can_hold": game.can_hold,
+        "can_can_hold": game.can_can_hold
     };
 };
+
+Tetris.hold = function (game) {
+    if (game.can_hold === true) {
+        if (game.held_tetromino !== "") {
+            return {
+                "bag": game.bag,
+                "current_tetromino": game.held_tetromino,
+                "field": game.field,
+                "game_over": false,
+                "next_tetromino": game.next_tetromino,
+                "position": game.position,
+                "score": game.score,
+                "held_tetromino": game.current_tetromino,
+                "can_hold": false,
+                "can_can_hold": false
+                };
+        } else {
+            return {
+                "bag": game.bag,
+                "current_tetromino": game.next_tetromino,
+                "field": game.field,
+                "game_over": false,
+                "next_tetromino": game.next_tetromino,
+                "position": game.position,
+                "score": game.score,
+                "held_tetromino": game.current_tetromino,
+                "can_hold": false,
+                "can_can_hold": false
+                };
+        }
+        
+    } else {
+        return game;
+    }
+
+};
+
+
 
 /**
  * @function
@@ -605,6 +702,7 @@ Tetris.next_turn = function (game) {
  * @returns {boolean} Whether the game is over or not.
  */
 Tetris.is_game_over = function (game) {
+    console.log(game.score);
     return game.game_over;
 };
 

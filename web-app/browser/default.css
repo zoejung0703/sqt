@@ -4,6 +4,10 @@
     --grid-rows: 6;
     --grid-aspect: var(--grid-columns) / var(--grid-rows);
 
+    --nextT_grid-columns: 4;
+    --nextT_grid-rows: 2;
+    --nextT_grid-aspect: var(--nextT_grid-columns) / var(--nextT_grid-rows);
+
     --footer-height: 48px;
     --header-height: 64px;
     --sidebar-width: clamp(100px, 25%, 300px);
@@ -131,6 +135,95 @@ footer
     width: calc(100% / var(--grid-columns));
 }
 
+.nextTgrid
+{
+    background: var(--palette-base4);
+    height: 200px;
+    /* max-width: var(--sidebar-max-width); */
+    position: absolute;
+    top: var(--header-height);
+    /*width: calc(25% / var(--nextT_grid-columns));*/
+    width: 400px;
+    margin: 30px;
+    padding: 0;
+}
+
+.heldTgrid
+{
+    background: var(--palette-base4);
+    height: 200px;
+    /* max-width: var(--sidebar-max-width); */
+    position: relative;
+    top: calc(var(--header-height)*2);
+    /*width: calc(25% / var(--nextT_grid-columns));*/
+    width: 400px;
+    margin: 30px;
+    padding: 0;
+}
+
+
+.nextT_row
+{
+    /*height: calc(100% / var(--nextT_grid-rows));*/
+    position: relative;
+    padding: 0;
+    margin: 0;
+    /*width: 100%;*/
+    height: 15px;
+    width: 60px;
+    /*align-items: center;*/
+}
+
+.nextT_cell
+{
+    /*background-size: cover;*/
+    border: 0.5px solid var(--palette-base3);
+    display: inline-block;
+    /*height: 100%;*/
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /*width: calc(100% / var(--nextT_grid-columns));*/
+    width: 15px;
+    height: 15px;
+}
+
+
+
+
+.heldT_row
+{
+    /*height: calc(100% / var(--nextT_grid-rows));*/
+    position: relative;
+    padding: 0;
+    margin: 0;
+    /*width: 100%;*/
+    height: 15px;
+    width: 60px;
+    /*align-items: center;*/
+}
+
+.heldT_cell
+{
+    /*background-size: cover;*/
+    border: 0.5px solid var(--palette-base3);
+    display: inline-block;
+    /*height: 100%;*/
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /*width: calc(100% / var(--nextT_grid-columns));*/
+    width: 15px;
+    height: 15px;
+}
+
+
+
+
+
+
+
+
 .cell.empty
 {
     
@@ -138,40 +231,128 @@ footer
 
 .cell.I
 {
-    background-color: var(--palette-secondary1);
+    background-color: skyblue;
 }
 
 .cell.J
 {
-    background-color: var(--palette-secondary1);
+    background-color: blue;
 }
 
 .cell.L
 {
-    background-color: var(--palette-secondary1);
+    background-color: orange;
 }
 
 .cell.O
 {
-    background-color: var(--palette-secondary1);
+    background-color: yellow;
 }
 
 .cell.S
 {
-    background-color: var(--palette-secondary1);
+    background-color: green;
 }
 
 .cell.T
 {
-    background-color: var(--palette-secondary1);
+    background-color: pink;
 }
 
 .cell.Z
 {
-    background-color: var(--palette-secondary1);
+    background-color: red;
 }
 
+/*
 .cell.current
 {
-    background-color: var(--palette-accent2);
+    background-color: grey;
+}
+*/
+
+
+.nextT_cell.empty
+{
+    /*background-color: var(--palette-base4);*/
+    background-color: white;
+}
+
+.nextT_cell.I
+{
+    background-color: skyblue;
+}
+
+.nextT_cell.J
+{
+    background-color: blue;
+}
+
+.nextT_cell.L
+{
+    background-color: orange;
+}
+
+.nextT_cell.O
+{
+    background-color: yellow;
+}
+
+.nextT_cell.S
+{
+    background-color: green;
+}
+
+.nextT_cell.T
+{
+    background-color: pink;
+}
+
+.nextT_cell.Z
+{
+    background-color: red;
+}
+
+
+
+
+.heldT_cell.empty
+{
+    /*background-color: var(--palette-base4);*/
+    background-color: white;
+}
+
+.heldT_cell.I
+{
+    background-color: skyblue;
+}
+
+.heldT_cell.J
+{
+    background-color: blue;
+}
+
+.heldT_cell.L
+{
+    background-color: orange;
+}
+
+.heldT_cell.O
+{
+    background-color: yellow;
+}
+
+.heldT_cell.S
+{
+    background-color: green;
+}
+
+.heldT_cell.T
+{
+    background-color: pink;
+}
+
+.heldT_cell.Z
+{
+    background-color: red;
 }
