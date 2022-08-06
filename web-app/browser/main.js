@@ -4,10 +4,10 @@ const grid_columns = Tetris.field_width;
 const grid_rows = Tetris.field_height;
 
 const nextT_grid_columns = 4;
-const nextT_grid_rows = 2;
+const nextT_grid_rows = 4;
 
 const heldT_grid_columns = 4;
-const heldT_grid_rows = 2;
+const heldT_grid_rows = 4;
 
 let game = Tetris.new_game();
 
@@ -131,7 +131,7 @@ const update_nextT_grid = function () {
 
 const update_heldT_grid = function () {
     let held_tetromino = game.held_tetromino;
-    let block_type = held_tetromino.block_type;
+    //let block_type = held_tetromino.block_type;
     // console.log(block_type);
 
     let tetromino_grid = held_tetromino.grid;

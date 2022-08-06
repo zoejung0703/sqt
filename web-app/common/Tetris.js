@@ -1,7 +1,8 @@
 import R from "./ramda.js";
 /**
  * @namespace Tetris
- * @author A. Freddie Page, Zoe Jung
+ * @author A. Freddie Page
+ * @student Zoe Jung
  * @version 2021.22
  */
 const Tetris = Object.create(null);
@@ -108,7 +109,9 @@ Tetris.I_tetromino = Object.freeze({
     "block_type": "I",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         ["I", "I", "I", "I"],
+        [" ", " ", " ", " "],
         [" ", " ", " ", " "]
     ],
     "colour": "cyan"
@@ -127,8 +130,10 @@ Tetris.J_tetromino = Object.freeze({
     "block_type": "J",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         ["J", "J", "J", " "],
-        [" ", " ", "J", " "]
+        [" ", " ", "J", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "blue"
 });
@@ -146,8 +151,10 @@ Tetris.L_tetromino = Object.freeze({
     "block_type": "L",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         ["L", "L", "L", " "],
-        ["L", " ", " ", " "]
+        ["L", " ", " ", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "orange"
 });
@@ -165,8 +172,10 @@ Tetris.O_tetromino = Object.freeze({
     "block_type": "O",
     "centre": [0.5, 0.5],
     "grid": [
+        [" ", " ", " ", " "],
         ["O", "O", " ", " "],
-        ["O", "O", " ", " "]
+        ["O", "O", " ", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "yellow"
 });
@@ -184,8 +193,10 @@ Tetris.S_tetromino = Object.freeze({
     "block_type": "S",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         [" ", "S", "S", " "],
-        ["S", "S", " ", " "]
+        ["S", "S", " ", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "green"
 });
@@ -203,8 +214,10 @@ Tetris.T_tetromino = Object.freeze({
     "block_type": "T",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         ["T", "T", "T", " "],
-        [" ", "T", " ", " "]
+        [" ", "T", " ", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "pink"
 });
@@ -222,8 +235,10 @@ Tetris.Z_tetromino = Object.freeze({
     "block_type": "Z",
     "centre": [1, 0],
     "grid": [
+        [" ", " ", " ", " "],
         ["Z", "Z", " ", " "],
-        [" ", "Z", "Z", " "]
+        [" ", "Z", "Z", " "],
+        [" ", " ", " ", " "]
     ],
     "colour": "red"
 });
@@ -468,7 +483,7 @@ const rotate_tetromino_cw = function (tetromino) {
     return {
         "block_type": tetromino.block_type,
         "centre": [
-            tetromino.grid.length - 1 - tetromino.centre[1],
+            tetromino.grid.length - 2 - tetromino.centre[1],
             tetromino.centre[0]
         ],
         "grid": rotate_grid_cw(tetromino.grid)
@@ -480,7 +495,7 @@ const rotate_tetromino_ccw = function (tetromino) {
         "block_type": tetromino.block_type,
         "centre": [
             tetromino.centre[1],
-            tetromino.grid[0].length - 1 - tetromino.centre[0]
+            tetromino.grid[0].length - 2 - tetromino.centre[0]
         ],
         "grid": rotate_grid_ccw(tetromino.grid)
     };
@@ -666,7 +681,7 @@ Tetris.hold = function (game) {
                 "field": game.field,
                 "game_over": false,
                 "next_tetromino": game.next_tetromino,
-                "position": game.position,
+                "position": starting_position,
                 "score": game.score,
                 "held_tetromino": game.current_tetromino,
                 "can_hold": false,
@@ -680,7 +695,7 @@ Tetris.hold = function (game) {
                 "field": game.field,
                 "game_over": false,
                 "next_tetromino": next_tetromino,
-                "position": game.position,
+                "position": starting_position,
                 "score": game.score,
                 "held_tetromino": game.current_tetromino,
                 "can_hold": false,
@@ -703,7 +718,7 @@ Tetris.hold = function (game) {
  * @returns {boolean} Whether the game is over or not.
  */
 Tetris.is_game_over = function (game) {
-    console.log(game.score);
+    //console.log(game.score);
     return game.game_over;
 };
 
