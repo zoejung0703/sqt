@@ -45,13 +45,11 @@ const cells = range(grid_rows).map(function () {
 });
 
 const nextT_cells = range(nextT_grid_rows).map(function () {
-    // row_cnt = 0;
-    // cell_cnt = 0;
 
     const nextT_row = document.createElement("div");
     nextT_row.className = `nextT_row`;
     nextT_row.id = `nextT_row`;
-    /*`cell ${block_type}`*/
+
 
     const nextT_rows = range(nextT_grid_columns).map(function () {
         const nextT_cell = document.createElement("div");
@@ -62,19 +60,16 @@ const nextT_cells = range(nextT_grid_rows).map(function () {
 
         return nextT_cell;
     });
-    // row_cnt++;
+
     nextT_grid.append(nextT_row);
     return nextT_rows;
 });
 
 const heldT_cells = range(heldT_grid_rows).map(function () {
-    // row_cnt = 0;
-    // cell_cnt = 0;
 
     const heldT_row = document.createElement("div");
     heldT_row.className = `heldT_row`;
     heldT_row.id = `heldT_row`;
-    /*`cell ${block_type}`*/
 
     const heldT_rows = range(heldT_grid_columns).map(function () {
         const heldT_cell = document.createElement("div");
@@ -85,7 +80,7 @@ const heldT_cells = range(heldT_grid_rows).map(function () {
 
         return heldT_cell;
     });
-    // row_cnt++;
+
     heldT_grid.append(heldT_row);
     return heldT_rows;
 });
@@ -117,22 +112,12 @@ const update_grid = function () {
 };
 
 const update_nextT_grid = function () {
-    // nextT_cells();
-    //let nextT_row_index = nextT_grid.prototype.indexOf(nextT_row);
-    let next_tetromino = game.next_tetromino;
-    //console.log(next_tetromino);
-    //let block_type = next_tetromino.block_type;
-    //console.log (block_type);
-    //console.log(block_type);
-    // let nextT_cells = nextT_grid
-    //let nextT_row = nextT_cells.nextT_row;
-    let tetromino_grid = next_tetromino.grid;
-    //let empty = "empty";
-    let nextT_cell_empty = document.getElementById("nextT_cell");
-    nextT_cell_empty.className = "nextT_cell empty";
 
-    //let nextT_cell_empty = document.getElementById("nextT_grid#nextT_row#nextT_cell");
-    //nextT_cell_empty.className = "nextT_cell.empty";
+    let next_tetromino = game.next_tetromino;
+    let tetromino_grid = next_tetromino.grid;
+    let nextT_cell_empty = document.getElementById("nextT_cell");
+
+    nextT_cell_empty.className = "nextT_cell empty";
 
     tetromino_grid.forEach(function (row, row_index) {
         row.forEach(function (block, column_index) {
@@ -141,73 +126,7 @@ const update_nextT_grid = function () {
         });
     });
 
-    //let this_tetromino_name = `Tetris.${block_type}_tetromino.grid`;
-    //let nextT_cell = document.getElementsByClassName("nextT_grid");
-    
-    //nextT_grid.className = `cell ${block_type}`;
-
-    /*next_tetromino.grid.forEach(function (line, line_index) {
-        line.forEach(function (block_type, column_index) {
-            const this_cell = nextT_grid[line_index][column_index];
-            this_cell.className = `cell ${block_type}`;
-        });
-    });*/
-    /*
-    next_tetromino.grid.forEach(function (line, line_index) {
-        line.forEach(function (block_type, column_index) {
-            for (nextT_grid.nextT_row; {
-                for (nextT_grid.nextT_row.nextT_cell ,{
-                    console.log("please");
-                })
-            })
-        });
-    });
-    */
-
-    /*
-    for (let i = 0; i < 2; i++) {
-        for (let j = 0; j < 4; j++) {
-            //nextT_grid[i][j].className = `cell ${block_type}`;
-            //console.log(block_type)
-            nextT_grid[i][j].className = `cell ${next_tetromino.grid[0][i][j]}`;
-            //console.log(`cell ${next_tetromino.grid[0][i][j]}`);
-            console.log(next_tetromino.grid);
-        }
-    }*/
-    
-    /*for (let nextT_rows of nextT_grid) {
-        for (let nextT_cells of nextT_rows) {
-            nextT_cells.className = `nextT_cell ${next_tetromino}`;
-        }
-    }*/
-
-    /*nextT_cells.nextT_rows.forEach(function (nextT_row, nextT_row_index) {
-        nextT_cells.nextT_columns.forEach(function (block, nextT_column_index) {
-            const nextT_cell = nextT_cells[nextT_row_index][nextT_column_index];
-            nextT_cell.className = `cell ${block}`;
-        });*/
-        /*
-        nextT_grid {
-            nextT_row {
-                const nextT_cell = nextT_cells[nextT_row_index][nextT_column_index];
-                nextT_cell.className = ` ${block}`;
-            };
-        */
 };
-    /*
-    Tetris.nextT_tetromino_coordiates(game.next_tetromino, game.position).forEach(
-        function (coord) {
-            try {
-                const nextT_cell = nextT_cells[coord[1]][coord[0]];
-                nextT_cell.className = (
-                    `nextT_cell current ${game.next_tetromino.block_type}`
-                );
-            } catch (ignore) {
-
-            }
-        }
-    );*/
-//};
 
 const update_heldT_grid = function () {
     let held_tetromino = game.held_tetromino;
