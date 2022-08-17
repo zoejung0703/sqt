@@ -345,8 +345,7 @@ Tetris.new_game = function () {
         "position": starting_position,
         "score": new_score(),
         "held_tetromino": "",
-        "can_hold": true,
-        "can_can_hold": true
+        "can_hold": true
         //"nextT_field": nextT_new_field()
     };
 };
@@ -643,14 +642,9 @@ Tetris.next_turn = function (game) {
         return lose(game);
     }
 
-    if (game.can_hold === false && game.can_can_hold === true) {
+    if (game.can_hold === false) {
         game.can_hold = true;
     }
-
-    if (game.can_can_hold === false) {
-        game.can_can_hold = true;
-    }
-
 
     const locked_field = lock(game);
 
@@ -667,8 +661,7 @@ Tetris.next_turn = function (game) {
         "position": starting_position,
         "score": game.score,
         "held_tetromino": game.held_tetromino,
-        "can_hold": game.can_hold,
-        "can_can_hold": game.can_can_hold
+        "can_hold": game.can_hold
     };
 };
 
@@ -684,8 +677,7 @@ Tetris.hold = function (game) {
                 "position": starting_position,
                 "score": game.score,
                 "held_tetromino": game.current_tetromino,
-                "can_hold": false,
-                "can_can_hold": false
+                "can_hold": false
                 };
         } else {
             const [next_tetromino, bag] = game.bag();
@@ -698,8 +690,7 @@ Tetris.hold = function (game) {
                 "position": starting_position,
                 "score": game.score,
                 "held_tetromino": game.current_tetromino,
-                "can_hold": false,
-                "can_can_hold": false
+                "can_hold": false
                 };
         }
         
